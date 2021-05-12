@@ -51,14 +51,22 @@ class _TodoWidgetState extends State<TodoWidget> {
                     width: 10,
                   ),
                   Expanded(
-                      child: Text(
-                    todoList[index]['todo'],
+                      child: TextField(
+                    decoration:
+                        InputDecoration(enabledBorder: InputBorder.none),
+                    controller: TextEditingController()
+                      ..text = todoList[index]['todo'],
                     style: todoList[index]['isDone']
                         ? TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationThickness: 1.5,
                             decorationStyle: TextDecorationStyle.double)
                         : null,
+                    onSubmitted: (String str) {
+                      setState(() {
+                        todoList[index]['todo'] = str;
+                      });
+                    },
                   )),
                   IconButton(
                       icon: Icon(Icons.close),
