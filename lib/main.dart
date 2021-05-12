@@ -22,7 +22,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+Future<Quote> fetchQuote() async {
+  final String uri = 'https://favqs.com/api/qotd';
+  final response = await http.get(Uri.parse(uri));
+
+  if (response.statusCode == 200) {
+    return Quote.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failde to fetch quote');
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+  Future<Quote> quote;
+
+  @override
+  void initState() {
+    super.initState();
+    quote = fetchQuote();
+  }
+
   String greetingMessage() {
     var timeNow = DateTime.now().hour;
 
@@ -42,8 +66,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+          margin: EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.transparent)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -51,9 +76,42 @@ class HomePage extends StatelessWidget {
                 greetingMessage(),
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              FutureBuilder<Quote>(
+                  future: quote,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SafeArea(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(snapshot.data.quoteText,
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic, fontSize: 16)),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            '- ${snapshot.data.quoteAuthor} -',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w200),
+                          ),
+                        ],
+                      ));
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    return CircularProgressIndicator();
+                  }),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
       ),
     );
   }
