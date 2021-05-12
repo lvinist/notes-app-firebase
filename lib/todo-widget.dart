@@ -14,6 +14,20 @@ class _TodoWidgetState extends State<TodoWidget> {
     super.dispose();
   }
 
+  void addTodo() {
+    setState(() {
+      if (pushTodoController.text.isNotEmpty) {
+        todoList.add({"todo": pushTodoController.text, "isDone": false});
+        pushTodoController.clear();
+      } else {
+        return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please add todo first'),
+          duration: Duration(seconds: 3),
+        ));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,8 +79,7 @@ class _TodoWidgetState extends State<TodoWidget> {
                     InputDecoration(hintText: 'What do you want to do today?'),
                 onSubmitted: (String str) {
                   setState(() {
-                    todoList.add({"todo": str, "isDone": false});
-                    pushTodoController.clear();
+                    addTodo();
                   });
                 },
               ),
@@ -75,9 +88,7 @@ class _TodoWidgetState extends State<TodoWidget> {
                 icon: Icon(Icons.add),
                 onPressed: () {
                   setState(() {
-                    todoList.add(
-                        {"todo": pushTodoController.text, "isDone": false});
-                    pushTodoController.clear();
+                    addTodo();
                   });
                 }),
           ],
