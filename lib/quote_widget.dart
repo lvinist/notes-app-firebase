@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app_firebase/model/quotes.dart';
+import 'package:todo_app_firebase/model/quotes.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';

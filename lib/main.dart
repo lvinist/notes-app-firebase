@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app_firebase/quote_widget.dart';
-import 'package:notes_app_firebase/todo-widget.dart';
+import 'package:todo_app_firebase/user_agent.dart';
+import 'package:todo_app_firebase/quote_widget.dart';
+import 'package:todo_app_firebase/todo-widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -72,30 +73,15 @@ class _HomePageState extends State<HomePage> {
                   TodoWidget(),
                 ],
               )),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8, bottom: 8, right: 16, left: 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundColor: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('|  Alvin')
-                      ],
-                    ),
-                  ),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  UserAgent(),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                          icon: Icon(Icons.settings), onPressed: () {}))
+                ],
               )
             ],
           ),
