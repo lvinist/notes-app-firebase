@@ -16,12 +16,17 @@ class _TodoWidgetState extends State<TodoWidget> {
 
   void addTodo() {
     setState(() {
-      if (pushTodoController.text.isNotEmpty) {
+      if (pushTodoController.text.isNotEmpty && todoList.length <= 6) {
         todoList.add({"todo": pushTodoController.text, "isDone": false});
         pushTodoController.clear();
-      } else {
+      } else if (pushTodoController.text.isEmpty) {
         return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please add todo first'),
+          duration: Duration(seconds: 3),
+        ));
+      } else {
+        return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Do the other task first!'),
           duration: Duration(seconds: 3),
         ));
       }
@@ -32,8 +37,32 @@ class _TodoWidgetState extends State<TodoWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          children: [
+            Flexible(
+              child: TextField(
+                controller: pushTodoController,
+                decoration:
+                    InputDecoration(hintText: 'What do you want to do today?'),
+                onSubmitted: (String str) {
+                  setState(() {
+                    addTodo();
+                  });
+                },
+              ),
+            ),
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  setState(() {
+                    addTodo();
+                  });
+                }),
+          ],
+        ),
         ListView.builder(
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: todoList.length,
             itemBuilder: (context, index) {
               return Row(
@@ -78,29 +107,6 @@ class _TodoWidgetState extends State<TodoWidget> {
                 ],
               );
             }),
-        Row(
-          children: [
-            Flexible(
-              child: TextField(
-                controller: pushTodoController,
-                decoration:
-                    InputDecoration(hintText: 'What do you want to do today?'),
-                onSubmitted: (String str) {
-                  setState(() {
-                    addTodo();
-                  });
-                },
-              ),
-            ),
-            IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  setState(() {
-                    addTodo();
-                  });
-                }),
-          ],
-        ),
       ],
     );
   }

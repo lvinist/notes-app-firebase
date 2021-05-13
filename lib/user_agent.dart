@@ -47,10 +47,13 @@ class _UserAgentState extends State<UserAgent> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                radius: 15,
+              Container(
+                width: 24,
+                height: 24,
                 child: ClipOval(
-                    child: Image.network('/assets/images/googleLogo.png')),
+                  child: Image(
+                      image: AssetImage('./assets/images/googleLogo.png')),
+                ),
               ),
               SizedBox(
                 width: 10,

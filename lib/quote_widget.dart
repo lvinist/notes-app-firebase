@@ -37,7 +37,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
           if (snapshot.hasData) {
             return SafeArea(
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(snapshot.data.quoteText,
                     style:
