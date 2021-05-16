@@ -7,7 +7,7 @@ class UserAgent extends StatefulWidget {
 }
 
 class _UserAgentState extends State<UserAgent> {
-  final user = null;
+  final user = 'Alvin';
   Widget build(BuildContext context) {
     if (user != null) {
       return Container(
@@ -26,36 +26,39 @@ class _UserAgentState extends State<UserAgent> {
               SizedBox(
                 width: 10,
               ),
-              Text('|  Alvin')
+              Text('|  $user')
             ],
           ),
         ),
       );
     }
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(40)),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8, bottom: 8, right: 16, left: 8),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 24,
-              height: 24,
-              child: ClipOval(
-                child:
-                    Image(image: AssetImage('./assets/images/googleLogo.png')),
-              ),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.white),
+            borderRadius: BorderRadius.circular(40)),
+        child: InkWell(
+          onTap: () {},
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 8, bottom: 8, right: 16, left: 8),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 24,
+                  height: 24,
+                  child: ClipOval(
+                    child: Image(
+                        image: AssetImage('./assets/images/googleLogo.png')),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('|  Sign in with Google')
+              ],
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Text('|  Sign in with Google')
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
