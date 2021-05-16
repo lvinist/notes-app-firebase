@@ -1,4 +1,4 @@
-package com.example.notes_app_firebase
+package com.alph.todo_app
 
 import io.flutter.embedding.android.FlutterActivity
 

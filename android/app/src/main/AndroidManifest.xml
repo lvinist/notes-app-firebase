@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.notes_app_firebase">
+    package="com.alph.todo_app">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="notes_app_firebase"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Todo"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
