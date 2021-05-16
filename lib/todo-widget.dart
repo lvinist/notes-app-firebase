@@ -7,16 +7,11 @@ class TodoWidget extends StatefulWidget {
 
 class _TodoWidgetState extends State<TodoWidget> {
   List todoList = [];
+
   final pushTodoController = TextEditingController();
-
-  void dispose() {
-    pushTodoController.dispose();
-    super.dispose();
-  }
-
   void addTodo() {
     setState(() {
-      if (pushTodoController.text.isNotEmpty && todoList.length <= 6) {
+      if (pushTodoController.text.isNotEmpty) {
         todoList.add({"todo": pushTodoController.text, "isDone": false});
         pushTodoController.clear();
       } else if (pushTodoController.text.isEmpty) {
@@ -24,13 +19,13 @@ class _TodoWidgetState extends State<TodoWidget> {
           content: Text('Please add todo first'),
           duration: Duration(seconds: 3),
         ));
-      } else {
-        return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Do the other task first!'),
-          duration: Duration(seconds: 3),
-        ));
       }
     });
+  }
+
+  void dispose() {
+    pushTodoController.dispose();
+    super.dispose();
   }
 
   @override

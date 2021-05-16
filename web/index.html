@@ -20,16 +20,39 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="notes_app_firebase">
+  <meta name="apple-mobile-web-app-title" content="Todo App">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="launcher_icon.png"/>
 
-  <title>notes_app_firebase</title>
+  <title>Todo App</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAuJ1rlBUaaBmw3cNOnfGhuqB9WHRSNfGQ",
+    authDomain: "todo-app-5c39a.firebaseapp.com",
+    projectId: "todo-app-5c39a",
+    storageBucket: "todo-app-5c39a.appspot.com",
+    messagingSenderId: "687348394696",
+    appId: "1:687348394696:web:95d2eece06904f0ba853fd",
+    measurementId: "G-D1CQC3WX0G"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
