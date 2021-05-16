@@ -10,17 +10,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String greetingMessage() {
+  greetingMessage() {
     var timeNow = DateTime.now().hour;
 
     if (timeNow <= 12) {
-      return 'Good Morning';
+      return Text(
+        'Good Morning',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 0.4
+              ..color = Colors.green),
+      );
     } else if ((timeNow > 12) && (timeNow <= 16)) {
-      return 'Good Afternoon';
+      return Text(
+        'Good Afternoon',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 0.4
+              ..color = Colors.lime),
+      );
     } else if ((timeNow > 16) && (timeNow < 20)) {
-      return 'Good Evening';
+      return Text(
+        'Good Evening',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 0.4
+              ..color = Colors.orange),
+      );
     } else {
-      return 'Good Night';
+      return Text('Good Night',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 0.4
+                ..color = Colors.blue));
     }
   }
 
@@ -28,37 +66,79 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-              backgroundColor: Colors.black,
-              pinned: true,
-              expandedHeight: MediaQuery.of(context).size.height * 0.4,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 25),
-                title: Text(
-                  greetingMessage(),
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (MediaQuery.of(context).size.width <= 600) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                    backgroundColor: Colors.black,
+                    pinned: true,
+                    expandedHeight: MediaQuery.of(context).size.height * 0.4,
+                    flexibleSpace: FlexibleSpaceBar(
+                        titlePadding: EdgeInsets.only(left: 25),
+                        title: greetingMessage())),
+                SliverToBoxAdapter(
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        children: [
+                          QuoteWidget(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TodoWidget(),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      )),
                 ),
-              )),
-          SliverToBoxAdapter(
-            child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 25),
-                child: Column(
-                  children: [
-                    QuoteWidget(),
-                    SizedBox(
-                      height: 20,
+              ],
+            );
+          } else {
+            return Container(
+              margin: EdgeInsets.only(top: 50),
+              child: Row(
+                children: [
+                  Spacer(),
+                  Container(
+                    width: 500,
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        SliverAppBar(
+                            backgroundColor: Colors.black,
+                            pinned: true,
+                            expandedHeight:
+                                MediaQuery.of(context).size.height * 0.4,
+                            flexibleSpace: FlexibleSpaceBar(
+                                titlePadding: EdgeInsets.only(left: 25),
+                                title: greetingMessage())),
+                        SliverToBoxAdapter(
+                          child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 25),
+                              child: Column(
+                                children: [
+                                  QuoteWidget(),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TodoWidget(),
+                                  SizedBox(
+                                    height: 20,
+                                  )
+                                ],
+                              )),
+                        ),
+                      ],
                     ),
-                    TodoWidget(),
-                    SizedBox(
-                      height: 20,
-                    )
-                  ],
-                )),
-          ),
-        ],
+                  ),
+                  Spacer()
+                ],
+              ),
+            );
+          }
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
