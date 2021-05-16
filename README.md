@@ -1,4 +1,4 @@
-# notes_app_firebase
+# Todo App Firebase
 
 A new Flutter project.
 
